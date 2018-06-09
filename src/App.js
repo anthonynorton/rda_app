@@ -5,31 +5,31 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: "Max", age: 28 },
-      { name: "Manu", age: 29 },
-      { name: "Stephanie", age: 26 }
+      { name: "Royden", age: 28 },
+      { name: "Daniel", age: 29 },
+      { name: "Anthony", age: 26 }
     ],
     otherState: "Some other value",
-    showPersons: false
+    showPersons: true
   }
 
   switchNameHandler = (newName) => {
     this.setState({
       persons: [
-        { name: newName, age: 28 },
-        { name: "B", age: 29 },
-        { name: "C", age: 27 }
+        { name: newName, age: 28, id: 1 },
+        { name: "B", age: 29, id: 2 },
+        { name: "C", age: 27, id: 3 },
       ]
     })
   }
 
   nameChangeHandler = (event, id) => {
-    const person = this.state.persons.findIndex(p => {
+    const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
     });
 
     const person = {
-      ...this.state.person[personsIndex]
+      ...this.state.persons[personIndex]
     };
 
     // const person = Object.assign({}, this.state.persons[personIndex]);
@@ -41,11 +41,11 @@ class App extends Component {
     this.setState({ persons: persons });
   }
 
-  deletePersonHandler = () => {
+  deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice();
-    const person = [...this.state.persons];
+    const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
-    this.setState({ persons, persons });
+    this.setState({ persons });
   }
 
   togglePersonsHandler = () => {
@@ -55,11 +55,12 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor: "white",
-      font: "inherit",
+      backgroundColor: "green",
       border: "1x solid blue",
+      color: '#fff',
+      cursor: "pointer",
+      font: "inherit",
       padding: "8px",
-      cursor: "pointer"
     };
 
     let persons = null;
@@ -68,22 +69,26 @@ class App extends Component {
       persons = (
         < div >
           {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
+            return (<Person
+              click={() => { console.log(person, index); this.deletePersonHandler(index) }}
               name={person.name}
               age={person.age}
               key={person.id}
-              change={(event) => this.nameChangeHandler(event, person.id)} />
+              change={(event) => this.nameChangeHandler(event, person.id)} />)
           })}
         </div>
       );
+      style.backgroundColor = 'red';
     }
 
+    let classes = this.state.persons.length <= 2 ? 'red' : '';
+    classes += this.state.persons.length <= 1 ? ' bold' : '';
 
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Welcome to React</h1>
+          <p className={classes}>This is working!</p>
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.

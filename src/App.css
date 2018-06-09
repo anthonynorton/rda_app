@@ -26,4 +26,10 @@ img {
   height: auto;
 }
 
+.red {
+  color: red;
+}
 
+.bold {
+  font-weight: bold;
+}
