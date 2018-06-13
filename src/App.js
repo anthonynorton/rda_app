@@ -8,11 +8,19 @@ class App extends Component {
       { name: "Max", age: 28 },
       { name: "Manu", age: 29 },
       { name: "Stephanie", age: 26 }
-    ]
+    ],
+    otherState: "Some other value"
   }
   
   switchNameHandler = () => {
-    
+    // console.log("I am working");
+    this.setState( {
+      persons: [
+       { name: "Maximilian", age: 28 },
+       { name: "Manu", age: 29 },
+       { name: "Stephanie", age: 27 }
+       ]
+    } )
   }
 
   render() {
@@ -24,7 +32,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <button onClick={}>Switch Name</button>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
         <Person name="Max" age="28" />
         <Person name="Manu" age="29">Hobbies: Racing</Person>
         <Person name="Stepahnie" age="26"/>
